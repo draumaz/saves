@@ -3,6 +3,9 @@
 # sync game saves, only updating files that are newer
 # push changes to Git
 
+# example usage
+# $ SAVES_PATH=$HOME/remote-repos/saves ANDROID_IP=192.168.0.24 ANDROID_PORT=38490 LINUX_IP=192.168.0.21 sh device_sync.sh mobile
+
 case $LINUX_IP in "") echo "error: missing LINUX_IP"; ERR=1 ;; esac
 case $ANDROID_IP in "") echo "error: missing ANDROID_IP"; ERR=1 ;; esac
 case $ANDROID_PORT in "") echo "error: missing ANDROID_PORT"; ERR=1 ;; esac
