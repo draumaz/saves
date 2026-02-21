@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# sync saves from thalassa + Pixel
-# only modify synced files that are newer
-# sync changes to Git
+# sync game saves, only updating files that are newer
+# push changes to Git
 
 case $1 in
   "")
@@ -13,12 +12,12 @@ esac
 
 case $i_response in
 C*)
-  rsync -aurptv 192.168.0.183:.local/share/dolphin-emu/GC/* $HOME/remote-repos/saves/GC/
-  rsync -aurptv 192.168.0.183:.local/share/dolphin-emu/Wii/*  $HOME/remote-repos/saves/Wii/
+  rsync -aurptv 192.168.0.183:.local/share/dolphin-emu/GC/* $PWD/GC/
+  rsync -aurptv 192.168.0.183:.local/share/dolphin-emu/Wii/*  $PWD/Wii/
 ;;
 M*)
-  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC $HOME/remote-repos/saves/
-  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii $HOME/remote-repos/saves/
+  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC $PWD
+  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii $PWD
 ;;
 esac
 
