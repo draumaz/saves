@@ -4,7 +4,7 @@
 # push changes to Git
 
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
-LDOL="192.168.0.183:.local/share/dolphin-emu"
+LDOL="$LINUX_IP:.local/share/dolphin-emu"
 
 cd $HOME/remote-repos/saves
 
@@ -15,7 +15,7 @@ case $1 in
   *) i_response="${1}"
 esac
 
-adb connect 100.90.72.28:9001
+adb connect $ANDROID_IP:$ANDROID_PORT
 
 case $i_response in
   C*|c*)
