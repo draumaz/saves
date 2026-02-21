@@ -20,6 +20,7 @@ case $1 in
   *) i_response="${1}"
 esac
 
+# magisk-wifiadb highly recommended to keep this static
 adb connect $ANDROID_IP:$ANDROID_PORT
 
 case $i_response in
