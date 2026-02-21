@@ -17,11 +17,11 @@ case $i_response in
   C*)
     for i in GC Wii; do
       scp -r $LDOL/$i $PWD
-      adb push $PWD/$i $ADOL/$i
+      adb push $PWD/$i $ADOL/$i/
     done ;;
   M*)
     for i in GC Wii; do
-      adb pull $LDOL/$i $PWD
+      adb pull $LDOL/$i $PWD/
       scp -r $PWD/$i $LDOL
     done ;;
 esac
