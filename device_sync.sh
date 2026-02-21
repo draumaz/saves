@@ -16,13 +16,13 @@ esac
 case $i_response in
   C*)
     for i in GC Wii; do
-      scp -rv $LDOL/$i $PWD
+      scp -r $LDOL/$i $PWD
       adb push $PWD/$i $ADOL/GC
     done ;;
   M*)
     for i in GC Wii; do
       adb pull $LDOL/$i $PWD
-      scp -rv $PWD/$i $LDOL
+      scp -r $PWD/$i $LDOL
     done ;;
 esac
 
