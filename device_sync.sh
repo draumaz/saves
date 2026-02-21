@@ -17,7 +17,7 @@ case $i_response in
   C*)
     for i in GC Wii; do
       scp -r $LDOL/$i $PWD
-      adb push $PWD/$i $ADOL/GC
+      adb push $PWD/$i $ADOL/$i
     done ;;
   M*)
     for i in GC Wii; do
