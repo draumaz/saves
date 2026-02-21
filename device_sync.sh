@@ -22,7 +22,7 @@ esac
 
 unset i_response
 
-cd remote-repos/saves
+cd $HOME/remote-repos/saves
 git add *
 git commit -m "Sync"
 git push
