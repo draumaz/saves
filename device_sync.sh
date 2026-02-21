@@ -4,7 +4,7 @@
 # push changes to Git
 
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
-LDOL="192.168.0.183:${HOME}/.local/share/dolphin-emu"
+LDOL="192.168.0.183:.local/share/dolphin-emu"
 
 case $1 in
   "")
@@ -21,7 +21,7 @@ case $i_response in
     done ;;
   M*|m*)
     for i in GC Wii; do
-      adb pull $LDOL/$i $PWD/
+      adb pull $ADOL/$i $PWD/
       scp -pr $PWD/$i $LDOL
     done ;;
 esac
