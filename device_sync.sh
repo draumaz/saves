@@ -7,8 +7,6 @@
 printf "What device did you last save to? [{C}onsole/{M}obile] "
 read i_response
 
-mkdir /tmp/dolphin-sync /tmp/dolphin-sync/console /tmp/dolphin-sync/mobile
-
 case $i_response in
 C*)
   rsync -aurptv 192.168.0.183:.local/share/dolphin-emu/GC/* $HOME/remote-repos/saves/GC/
