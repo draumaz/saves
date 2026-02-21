@@ -20,6 +20,8 @@ C*)
 M*)
   adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC $PWD
   adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii $PWD
+  rsync -aurptv GC/* 192.168.0.183:${HOME}/.local/share/dolphin-emu/GC/
+  rsync -aurptv Wii/* 192.168.0.183:${HOME}/.local/share/dolphin-emu/Wii/
 ;;
 esac
 
