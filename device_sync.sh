@@ -3,6 +3,11 @@
 # sync game saves, only updating files that are newer
 # push changes to Git
 
+case $LINUX_IP in "") echo "error: missing LINUX_IP"; ERR=1 ;; esac
+case $ANDROID_IP in "") echo "error: missing ANDROID_IP"; ERR=1 ;; esac
+case $ANDROID_PORT in "") echo "error: missing ANDROID_PORT"; ERR=1 ;; esac
+case $ERR in 1) exit 1 ;; esac
+
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
 LDOL="$LINUX_IP:.local/share/dolphin-emu"
 
