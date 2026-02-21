@@ -14,6 +14,8 @@ case $i_response in
 C*)
   rsync -aurptv 192.168.0.183:${HOME}/.local/share/dolphin-emu/GC/* ${PWD}/GC/
   rsync -aurptv 192.168.0.183:${HOME}/.local/share/dolphin-emu/Wii/*  ${PWD}/Wii/
+  adb push $PWD/GC /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC
+  adb push $PWD/Wii /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii
 ;;
 M*)
   adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC $PWD
