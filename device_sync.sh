@@ -21,7 +21,7 @@ case $i_response in
     done ;;
   M*|m*)
     for i in GC Wii; do
-      adb pull $ADOL/$i $PWD/
+      adb pull $ADOL/$i $PWD
       scp -pr $PWD/$i $LDOL
     done ;;
 esac
