@@ -4,8 +4,12 @@
 # only modify synced files that are newer
 # sync changes to Git
 
-printf "What device did you last save to? [{C}onsole/{M}obile] "
-read i_response
+case $1 in
+  "")
+    printf "What device did you last save to? [{C}onsole/{M}obile] "
+    read i_response ;;
+  *) i_response="${1}"
+esac
 
 case $i_response in
 C*)
