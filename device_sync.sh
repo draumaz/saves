@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# sync game saves, only updating files that are newer
-# push changes to Git
+# device_sync
+# maintain the same Dolphin saves on a Linux computer and an Android phone
 
 # example usage
 # $ SAVES_PATH=$HOME/remote-repos/saves ANDROID_IP=192.168.0.24 ANDROID_PORT=38490 LINUX_IP=192.168.0.21 sh device_sync.sh mobile
