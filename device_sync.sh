@@ -6,6 +6,8 @@
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
 LDOL="192.168.0.183:.local/share/dolphin-emu"
 
+cd $HOME/remote-repos/saves
+
 case $1 in
   "")
     printf "What device did you last save to? [{C}onsole/{M}obile] "
@@ -28,7 +30,6 @@ esac
 
 unset i_response
 
-cd $HOME/remote-repos/saves
 git add *
 git commit -m "Sync"
 git push
