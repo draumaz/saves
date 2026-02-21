@@ -15,6 +15,8 @@ case $1 in
   *) i_response="${1}"
 esac
 
+adb connect 100.90.72.28:9001
+
 case $i_response in
   C*|c*)
     for i in GC Wii; do
@@ -28,6 +30,7 @@ case $i_response in
     done ;;
 esac
 
+adb disconnect
 unset i_response
 
 git add *
