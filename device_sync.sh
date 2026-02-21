@@ -6,12 +6,13 @@
 case $LINUX_IP in "") echo "error: missing LINUX_IP"; ERR=1 ;; esac
 case $ANDROID_IP in "") echo "error: missing ANDROID_IP"; ERR=1 ;; esac
 case $ANDROID_PORT in "") echo "error: missing ANDROID_PORT"; ERR=1 ;; esac
+case $SAVES_PATH in "") echo "error: missing SAVES_PATH"; ERR=1 ;; esac
 case $ERR in 1) exit 1 ;; esac
 
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
 LDOL="$LINUX_IP:.local/share/dolphin-emu"
 
-cd $HOME/remote-repos/saves
+cd "${SAVES_PATH}"
 
 case $1 in
   "")
