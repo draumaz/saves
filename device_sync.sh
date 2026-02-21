@@ -14,12 +14,12 @@ case $1 in
 esac
 
 case $i_response in
-  C*)
+  C*|c*)
     for i in GC Wii; do
       scp -pr $LDOL/$i $PWD
       adb push $PWD/$i $ADOL/
     done ;;
-  M*)
+  M*|m*)
     for i in GC Wii; do
       adb pull $LDOL/$i $PWD/
       scp -pr $PWD/$i $LDOL
