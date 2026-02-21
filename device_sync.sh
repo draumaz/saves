@@ -3,6 +3,9 @@
 # sync game saves, only updating files that are newer
 # push changes to Git
 
+ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
+LDOL="192.168.0.183:${HOME}/.local/share/dolphin-emu"
+
 case $1 in
   "")
     printf "What device did you last save to? [{C}onsole/{M}obile] "
@@ -11,18 +14,16 @@ case $1 in
 esac
 
 case $i_response in
-C*)
-  rsync -aurptv 192.168.0.183:${HOME}/.local/share/dolphin-emu/GC/* ${PWD}/GC/
-  rsync -aurptv 192.168.0.183:${HOME}/.local/share/dolphin-emu/Wii/*  ${PWD}/Wii/
-  adb push $PWD/GC /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC
-  adb push $PWD/Wii /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii
-;;
-M*)
-  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/GC $PWD
-  adb pull /sdcard/Android/data/org.dolphinemu.dolphinemu/files/Wii $PWD
-  rsync -aurptv GC/* 192.168.0.183:${HOME}/.local/share/dolphin-emu/GC/
-  rsync -aurptv Wii/* 192.168.0.183:${HOME}/.local/share/dolphin-emu/Wii/
-;;
+  C*)
+    for i in GC Wii; do
+      scp -rv $LDOL/$i $PWD
+      adb push $PWD/$i $ADOL/GC
+    done ;;
+  M*)
+    for i in GC Wii; do
+      adb pull $LDOL/$i $PWD
+      scp -rv $PWD/$i $LDOL
+    done ;;
 esac
 
 unset i_response
