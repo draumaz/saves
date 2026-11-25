@@ -1,49 +1,34 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # device_sync
-# maintain the same Dolphin saves on a Linux computer and an Android phone
-
+# Relay Dolphin saves between this repo and an Android phone over adb.
+# Normally run over ssh by dolsyn (github.com/draumaz/lindots, bin/dolsyn).
+#
 # example usage
-# $ SAVES_PATH=$HOME/remote-repos/saves ANDROID_IP=192.168.0.24 ANDROID_PORT=38490 LINUX_IP=192.168.0.21 sh device_sync.sh mobile
+# $ ANDROID_IP=192.168.0.24 ANDROID_PORT=38490 sh device_sync.sh to-phone
+#     to-phone    copy the repo's GC and Wii saves onto the phone
+#     from-phone  copy the phone's saves into the repo, commit and push
 
-case $LINUX_IP in "") echo "error: missing LINUX_IP"; ERR=1 ;; esac
 case $ANDROID_IP in "") echo "error: missing ANDROID_IP"; ERR=1 ;; esac
 case $ANDROID_PORT in "") echo "error: missing ANDROID_PORT"; ERR=1 ;; esac
-case $SAVES_PATH in "") echo "error: missing SAVES_PATH"; ERR=1 ;; esac
 case $ERR in 1) exit 1 ;; esac
 
 ADOL="/sdcard/Android/data/org.dolphinemu.dolphinemu/files"
-LDOL="$LINUX_IP:.local/share/dolphin-emu"
+PHONE="${ANDROID_IP}:${ANDROID_PORT}"
 
-cd "${SAVES_PATH}"
-
-case $1 in
-  "")
-    printf "What device did you last save to? [{C}onsole/{M}obile] "
-    read i_response ;;
-  *) i_response="${1}"
-esac
+cd "`dirname "$0"`"
 
 # magisk-wifiadb highly recommended to keep this static
-adb connect $ANDROID_IP:$ANDROID_PORT
+adb connect "${PHONE}"
+trap 'adb disconnect "${PHONE}" >/dev/null' EXIT
 
-case $i_response in
-  C*|c*)
-    for i in GC Wii; do
-      scp -pr $LDOL/$i $PWD
-      adb push $PWD/$i $ADOL/
-    done ;;
-  M*|m*)
-    for i in GC Wii; do
-      adb pull $ADOL/$i $PWD
-      scp -pr $PWD/$i $LDOL
-    done ;;
+case $1 in
+  to-phone)
+    for i in GC Wii; do adb -s "${PHONE}" push "$i" "${ADOL}/"; done ;;
+  from-phone)
+    for i in GC Wii; do adb -s "${PHONE}" pull "${ADOL}/$i" .; done
+    git add -A
+    git diff --cached --quiet || git commit -q -m "Sync from phone"
+    git push -q ;;
+  *) echo "usage: device_sync.sh to-phone|from-phone"; exit 1 ;;
 esac
-
-adb disconnect
-unset i_response
-
-git add *
-git commit -m "Sync"
-git push
-
